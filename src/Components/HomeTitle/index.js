@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 const HomeTitle = ({ amount }) => {
   if (!amount) return <h3>No hemos encontrado ninguna coincidencia</h3>;
@@ -11,4 +11,4 @@ const HomeTitle = ({ amount }) => {
   );
 };
 
-export default HomeTitle;
+export default memo(HomeTitle);

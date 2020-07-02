@@ -2,32 +2,42 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useMediaQuery } from "react-responsive";
 
 import * as actions from "Redux/actions/cars";
 import * as selectors from "Redux/selectors/cars";
 import carsService from "Services/carsService";
 
 import HomeHeader from "Components/HomeHeader";
+import HomeList from "Components/HomeList";
 
 const Home = ({ cars, setCars }) => {
   const { data: carsResponse, status, error } = useQuery(
     "cars",
     carsService.getCars
   );
+  const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
+
   useEffect(() => {
-    console.log("CALLED QUERY", carsResponse);
     if (carsResponse) {
       setCars(carsResponse);
     }
   }, [carsResponse, setCars]);
 
-  console.log(cars, "CARS REDUX");
+  if (error) {
+    alert("An error occurred, try reloading the page");
+    return <ClipLoader />;
+  }
+
   return (
     <div>
-      <HomeHeader />
-      {cars.map((e) => {
-        return <p>{e.Id}</p>;
-      })}
+      <HomeHeader amount={cars.length} />
+      {status === "success" ? (
+        <HomeList list={cars} />
+      ) : (
+        <ClipLoader size={isMobile ? 35 : 60} />
+      )}
     </div>
   );
 };

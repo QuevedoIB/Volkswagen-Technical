@@ -13,7 +13,7 @@ class CarsService {
     //Api call this.cars.METHOD(route)
     return new Promise((resolve, reject) => {
       setTimeout(function () {
-        //Add a liked field for filtering by favourites func
+        //Add a liked field for filtering by favorites func
         const vehiclesWithLiked = vehicles.map((e) => ({ ...e, Liked: false }));
         resolve(vehiclesWithLiked);
       }, 250);

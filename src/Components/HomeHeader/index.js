@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -47,18 +47,24 @@ const StyledButtonContentContainer = styled.span`
   justify-content: space-evenly;
 `;
 
-const HomeHeader = ({ editFilters, filters: { keyword, liked } }) => {
-  console.log("RERENDER HEADER");
-  const onChangeKeyword = ({ target: { value } }) => {
-    editFilters({
-      keyword: value,
-      liked,
-    });
-  };
-  const onFavouritesPress = () => editFilters({ keyword, liked: !liked });
+const HomeHeader = ({ editFilters, filters: { keyword, liked }, amount }) => {
+  const onChangeKeyword = useCallback(
+    ({ target: { value } }) => {
+      editFilters({
+        keyword: value,
+        liked,
+      });
+    },
+    [editFilters, liked]
+  );
+  const onFavoritesPress = useCallback(
+    () => editFilters({ keyword, liked: !liked }),
+    [editFilters, keyword, liked]
+  );
+
   return (
     <>
-      <HomeTitle amount={0} />
+      <HomeTitle amount={amount} />
       <StyledHeaderContainer>
         <StyledInput
           value={keyword}
@@ -66,7 +72,7 @@ const HomeHeader = ({ editFilters, filters: { keyword, liked } }) => {
           onChange={onChangeKeyword}
         />
         <StyledButton>
-          <StyledButtonContentContainer onClick={onFavouritesPress}>
+          <StyledButtonContentContainer onClick={onFavoritesPress}>
             Favoritos
             {liked ? <FaHeart /> : <FaRegHeart />}
           </StyledButtonContentContainer>
