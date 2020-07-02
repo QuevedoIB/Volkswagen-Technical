@@ -1,10 +1,11 @@
 import React, { useCallback, memo } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaMapMarkerAlt } from "react-icons/fa";
 
 import * as actions from "Redux/actions/cars";
 
+// Car item missing: Location, Automatico/Manual, Liked (injected in api call)
 // {
 //     "Id": "001",
 //     "Brand": "VW",
@@ -59,6 +60,9 @@ const CarCard = ({
         </button>
       </div>
       <p>{`${Plate} | ${year} | ${Kms}km | ${CV}CV | ${Energy}`}</p>
+      <div>
+        <FaMapMarkerAlt /> <p>Barcelona</p>
+      </div>
     </div>
   );
 };
