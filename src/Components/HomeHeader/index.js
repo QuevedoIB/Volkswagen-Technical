@@ -13,7 +13,7 @@ const StyledHeaderContainer = styled.div`
   max-height: 40px;
   display: flex;
   justify-content: space-between;
-  padding: 10px 40px;
+  margin: ${({ theme }) => theme.defaultMargin}px 0;
 `;
 
 const StyledInput = styled.input`
@@ -36,7 +36,7 @@ const StyledButton = styled.button`
   }}
   background-color: white;
   cursor: pointer;
-  height: 40px;
+  height: 42px;
   width: 100px;
 `;
 

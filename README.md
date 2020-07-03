@@ -1,10 +1,14 @@
 TODO:
 
 - prop-types
-- multilanguage
 - styled components
-- redux
-- immutable list items
-- mock api
-- cache queries - react-query
+- limit rendered items in list
 - tests
+
+Commands required to run the project locally:
+
+- npm i && npm start
+
+Testing commands:
+
+- npm test

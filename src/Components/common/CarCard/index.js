@@ -2,8 +2,85 @@ import React, { useCallback, memo } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { FaHeart, FaRegHeart, FaMapMarkerAlt } from "react-icons/fa";
+import styled from "styled-components";
 
 import * as actions from "Redux/actions/cars";
+
+const StyledCardContainer = styled.li`
+  display: inline-block;
+  margin: auto;
+  height: auto;
+  width: 30vw;
+
+  @media (max-width: 720px) {
+    width: 35vw;
+  }
+
+  @media (max-width: 480px) {
+    width: 90vw;
+  }
+`;
+
+const StyledCarImage = styled.img`
+  height: 30%;
+  width: 100%;
+`;
+
+const StyledCardTitles = styled.p`
+  ${({ theme }) => `
+  color: ${theme.primaryBlue};
+  font-family: ${theme.primaryFont};
+  `}
+  font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : "14px")};
+  font-weight: ${({ fontWeight }) => (fontWeight ? `${fontWeight}` : "400")};
+`;
+
+const StyledLikeButton = styled.button`
+  background: none;
+  border: 1px solid ${({ theme }) => theme.primaryBlue};
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+
+  svg {
+    color: ${({ theme }) => theme.primaryBlue};
+  }
+`;
+
+const StyledCardHeaderContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StyledCardDetails = styled.p`
+  color: gray;
+  font-size: 12px;
+  font-family: ${({ theme }) => theme.primaryFont};
+`;
+
+const StyledLocationContainer = styled(StyledCardHeaderContainer)`
+  justify-content: flex-start;
+  svg,
+  p {
+    color: ${({ theme }) => theme.primaryBlue};
+  }
+
+  p {
+    font-family: ${({ theme }) => theme.primaryFont};
+    margin-left: 6px;
+  }
+`;
+
+const StyledCarDetailsContainer = styled.div`
+  padding: 8px;
+`;
 
 // Car item missing: Location, Automatico/Manual, Liked (injected in api call)
 // {
@@ -43,27 +120,32 @@ const CarCard = ({
   );
 
   const onLikePress = useCallback(() => {
-    //edit redux cars and like the car that matches id
     likeCar(Id);
-  }, []);
+  }, [Id, likeCar]);
 
   return (
-    <div>
-      <img src={Image} alt="Car Model"></img>
-      <div>
-        <div>
-          <p>{`${Brand} ${Model}`}</p>
-          <p>{`${Brand} ${Model} ${CV}CV`}</p>
-        </div>
-        <button onClick={onLikePress}>
-          {Liked ? <FaHeart /> : <FaRegHeart />}
-        </button>
-      </div>
-      <p>{`${Plate} | ${year} | ${Kms}km | ${CV}CV | ${Energy}`}</p>
-      <div>
-        <FaMapMarkerAlt /> <p>Barcelona</p>
-      </div>
-    </div>
+    <StyledCardContainer>
+      <StyledCarImage src={Image} alt="Car Model"></StyledCarImage>
+      <StyledCarDetailsContainer>
+        <StyledCardHeaderContainer>
+          <div>
+            <StyledCardTitles
+              fontWeight={600}
+            >{`${Brand} ${Model}`}</StyledCardTitles>
+            <StyledCardTitles
+              fontSize={12}
+            >{`${Brand} ${Model} ${CV}CV`}</StyledCardTitles>
+          </div>
+          <StyledLikeButton onClick={onLikePress}>
+            {Liked ? <FaHeart size={20} /> : <FaRegHeart size={20} />}
+          </StyledLikeButton>
+        </StyledCardHeaderContainer>
+        <StyledCardDetails>{`${Plate} | ${year} | ${Kms}km | ${CV}CV | ${Energy}`}</StyledCardDetails>
+        <StyledLocationContainer>
+          <FaMapMarkerAlt /> <p>Barcelona</p>
+        </StyledLocationContainer>
+      </StyledCarDetailsContainer>
+    </StyledCardContainer>
   );
 };
 
