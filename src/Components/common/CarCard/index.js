@@ -34,6 +34,10 @@ const StyledCardTitles = styled.p`
   `}
   font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : "14px")};
   font-weight: ${({ fontWeight }) => (fontWeight ? `${fontWeight}` : "400")};
+
+  @media (min-width: 1200px) {
+    font-size: ${({ fontSize }) => (fontSize ? `1.2rem` : "1.6rem")};
+  }
 `;
 
 const StyledLikeButton = styled.button`
@@ -64,6 +68,9 @@ const StyledCardDetails = styled.p`
   color: gray;
   font-size: 12px;
   font-family: ${({ theme }) => theme.primaryFont};
+  @media (min-width: 1200px) {
+    font-size: 1rem;
+  }
 `;
 
 const StyledLocationContainer = styled(StyledCardHeaderContainer)`
@@ -76,6 +83,10 @@ const StyledLocationContainer = styled(StyledCardHeaderContainer)`
   p {
     font-family: ${({ theme }) => theme.primaryFont};
     margin-left: 6px;
+  }
+
+  @media (min-width: 1200px) {
+    font-size: 1.2rem;
   }
 `;
 

@@ -64,8 +64,6 @@ const HomeList = ({ list, filters }) => {
     };
   }, [handleScroll]);
 
-  console.log("rerender", listToRender);
-
   return (
     <StyledListContainer ref={listRef}>
       {listToRender.map((e) => {
