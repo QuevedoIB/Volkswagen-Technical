@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { FaHeart, FaRegHeart, FaMapMarkerAlt } from "react-icons/fa";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import * as actions from "Redux/actions/cars";
 
@@ -147,6 +148,22 @@ const CarCard = ({
       </StyledCarDetailsContainer>
     </StyledCardContainer>
   );
+};
+
+CarCard.propTypes = {
+  car: PropTypes.shape({
+    Id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    Image: PropTypes.string,
+    Brand: PropTypes.string,
+    Model: PropTypes.string,
+    CV: PropTypes.number,
+    Energy: PropTypes.string,
+    Plate: PropTypes.string,
+    Kms: PropTypes.number,
+    RegistrationDate: PropTypes.string,
+    Liked: PropTypes.bool,
+  }).isRequired,
+  likeCar: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

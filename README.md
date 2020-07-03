@@ -1,8 +1,5 @@
 TODO:
 
-- prop-types
-- styled components
-- limit rendered items in list
 - tests
 
 Commands required to run the project locally:

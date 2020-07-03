@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import PropTypes from "prop-types";
 
 const HomeTitle = ({ amount }) => {
   if (!amount) return <h3>No hemos encontrado ninguna coincidencia</h3>;
@@ -9,6 +10,10 @@ const HomeTitle = ({ amount }) => {
       {amount > 1 ? `${amount} vehículos para ti` : "un vehículo para ti"}
     </h3>
   );
+};
+
+HomeTitle.propTypes = {
+  amount: PropTypes.number.isRequired,
 };
 
 export default memo(HomeTitle);

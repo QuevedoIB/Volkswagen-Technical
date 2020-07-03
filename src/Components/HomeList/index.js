@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, memo, useCallback } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import CarCard from "Components/common/CarCard";
 
@@ -19,20 +21,18 @@ const StyledListContainer = styled.ul`
   }
 `;
 
-const HomeList = ({ list }) => {
+const HomeList = ({ list, filters }) => {
   const [index, setIndex] = useState(3); //base items to render;
   const listRef = useRef();
   const listToRender = list.slice(0, index);
 
   useEffect(() => {
     setIndex(3);
-  }, [list]);
+  }, [filters]);
 
   const onEndListReached = useCallback(() => {
     const nextIndex = index + 3;
     const itemsLeft = list.length - nextIndex;
-
-    console.log(nextIndex, itemsLeft);
 
     if (itemsLeft >= 3) {
       return setIndex(nextIndex);
@@ -42,9 +42,12 @@ const HomeList = ({ list }) => {
   }, [list, index]);
 
   const handleScroll = useCallback(() => {
-    console.log("SCROLLING");
+    //50px from bottom to trigger the load more items handler
+    const distanceFromBottomToFetch = 50;
+
     const endListReached =
-      listRef.current.getBoundingClientRect().bottom <= window.innerHeight + 50; //50px from bottom
+      listRef.current.getBoundingClientRect().bottom <=
+      window.innerHeight + distanceFromBottomToFetch;
     if (endListReached) {
       onEndListReached();
     }
@@ -72,4 +75,29 @@ const HomeList = ({ list }) => {
   );
 };
 
-export default memo(HomeList);
+HomeList.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      Id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      Image: PropTypes.string,
+      Brand: PropTypes.string,
+      Model: PropTypes.string,
+      CV: PropTypes.number,
+      Energy: PropTypes.string,
+      Plate: PropTypes.string,
+      Kms: PropTypes.number,
+      RegistrationDate: PropTypes.string,
+      Liked: PropTypes.bool,
+    })
+  ).isRequired,
+  filters: PropTypes.shape({
+    keyword: PropTypes.string,
+    liked: PropTypes.bool,
+  }).isRequired,
+};
+
+const mapStateToProps = ({ cars: { filters } }) => ({
+  filters,
+});
+
+export default memo(connect(mapStateToProps)(HomeList));

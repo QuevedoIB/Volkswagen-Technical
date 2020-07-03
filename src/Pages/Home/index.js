@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import * as actions from "Redux/actions/cars";
 import * as selectors from "Redux/selectors/cars";
@@ -45,6 +46,24 @@ const Home = ({ cars, setCars }) => {
       )}
     </StyledHomeWrapper>
   );
+};
+
+Home.propTypes = {
+  cars: PropTypes.arrayOf(
+    PropTypes.shape({
+      Id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      Image: PropTypes.string,
+      Brand: PropTypes.string,
+      Model: PropTypes.string,
+      CV: PropTypes.number,
+      Energy: PropTypes.string,
+      Plate: PropTypes.string,
+      Kms: PropTypes.number,
+      RegistrationDate: PropTypes.string,
+      Liked: PropTypes.bool,
+    })
+  ).isRequired,
+  setCars: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

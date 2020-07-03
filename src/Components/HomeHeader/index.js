@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 import * as actions from "Redux/actions/cars";
 
@@ -80,6 +81,15 @@ const HomeHeader = ({ editFilters, filters: { keyword, liked }, amount }) => {
       </StyledHeaderContainer>
     </>
   );
+};
+
+HomeHeader.propTypes = {
+  editFilters: PropTypes.func.isRequired,
+  filters: PropTypes.shape({
+    keyword: PropTypes.string,
+    liked: PropTypes.bool,
+  }).isRequired,
+  amount: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ cars: { filters } }) => ({
