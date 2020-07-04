@@ -1,7 +1,3 @@
-TODO:
-
-- tests
-
 Commands required to run the project locally:
 
 - npm i && npm start
