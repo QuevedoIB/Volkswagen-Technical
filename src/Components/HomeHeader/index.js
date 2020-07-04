@@ -89,9 +89,16 @@ const HomeHeader = ({ editFilters, filters: { keyword, liked }, amount }) => {
           onChange={onChangeKeyword}
         />
         <StyledButton>
-          <StyledButtonContentContainer onClick={onFavoritesPress}>
+          <StyledButtonContentContainer
+            data-testid="like-button"
+            onClick={onFavoritesPress}
+          >
             {!isMobile && "Favoritos"}
-            {liked ? <FaHeart /> : <FaRegHeart />}
+            {liked ? (
+              <FaHeart data-testid="liked-icon" />
+            ) : (
+              <FaRegHeart data-testid="disliked-icon" />
+            )}
           </StyledButtonContentContainer>
         </StyledButton>
       </StyledHeaderContainer>

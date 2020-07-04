@@ -21,25 +21,34 @@ const StyledListContainer = styled.ul`
   }
 `;
 
-const HomeList = ({ list, filters }) => {
-  const [index, setIndex] = useState(3); //base items to render;
+const HomeList = ({ list, filters, amountToRender = 3 }) => {
+  const [index, setIndex] = useState(amountToRender); //base items to render;
   const listRef = useRef();
   const listToRender = list.slice(0, index);
 
   useEffect(() => {
-    setIndex(3);
-  }, [filters]);
+    setIndex(amountToRender);
+  }, [filters, amountToRender]);
 
   const onEndListReached = useCallback(() => {
-    const nextIndex = index + 3;
-    const itemsLeft = list.length - nextIndex;
-
-    if (itemsLeft >= 3) {
-      return setIndex(nextIndex);
-    } else if (itemsLeft <= 3 && itemsLeft >= 0) {
+    const itemsLeft = list.length - index;
+    if (itemsLeft >= amountToRender) {
+      return setIndex((index) => index + amountToRender);
+    } else if (itemsLeft < amountToRender && itemsLeft > 0) {
       setIndex(list.length);
     }
-  }, [list, index]);
+  }, [list, amountToRender, index]);
+
+  useEffect(() => {
+    const listFillScreen = () => {
+      if (
+        listRef.current.getBoundingClientRect().height <= window.innerHeight
+      ) {
+        onEndListReached();
+      }
+    };
+    listFillScreen();
+  }, [onEndListReached, amountToRender, index, list.length]);
 
   const handleScroll = useCallback(() => {
     //50px from bottom to trigger the load more items handler
@@ -64,11 +73,17 @@ const HomeList = ({ list, filters }) => {
     };
   }, [handleScroll]);
 
+  const renderListContent = useCallback(
+    () =>
+      listToRender.map((e) => {
+        return <CarCard key={e.Id} car={e} />;
+      }),
+    [listToRender]
+  );
+
   return (
     <StyledListContainer ref={listRef}>
-      {listToRender.map((e) => {
-        return <CarCard key={e.Id} car={e} />;
-      })}
+      {renderListContent()}
     </StyledListContainer>
   );
 };
@@ -92,6 +107,7 @@ HomeList.propTypes = {
     keyword: PropTypes.string,
     liked: PropTypes.bool,
   }).isRequired,
+  amountToRender: PropTypes.number,
 };
 
 const mapStateToProps = ({ cars: { filters } }) => ({

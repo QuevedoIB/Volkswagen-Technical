@@ -1,6 +1,7 @@
 import React from "react";
 import { screen } from "@testing-library/dom";
 import "@testing-library/jest-dom/extend-expect";
+
 import { store, render, fireEvent } from "Utils/testUtils";
 import { SET_CARS } from "Redux/actions/types";
 
@@ -30,7 +31,7 @@ test("Car Card renders correctly", () => {
   ).toBeVisible();
 });
 
-test("Likes car correctly", async () => {
+test("Likes car correctly", () => {
   store.dispatch({ type: SET_CARS, payload: [mockedCarData] });
   render(<CarCard car={mockedCarData} />);
 
@@ -44,7 +45,7 @@ test("Likes car correctly", async () => {
   expect(items[0].Liked).toBeTruthy();
 });
 
-test("Dislikes car correctly", async () => {
+test("Dislikes car correctly", () => {
   store.dispatch({
     type: SET_CARS,
     payload: [{ ...mockedCarData, Liked: true }],
