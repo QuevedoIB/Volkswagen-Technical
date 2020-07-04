@@ -8,9 +8,15 @@ const StyledNav = styled.nav`
   background: rgba(255, 255, 255, 0.6);
   height: 68px;
   margin: 0 0 68px;
+  padding: ${({ theme: { defaultPadding } }) => defaultPadding}px;
 
   @media (max-width: 720px) {
     height: 48px;
+  }
+
+  @media (max-width: 600px) {
+    height: 48px;
+    margin: 0;
   }
 `;
 
