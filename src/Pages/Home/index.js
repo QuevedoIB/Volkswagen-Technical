@@ -48,7 +48,7 @@ const Home = ({ cars, setCars }) => {
       {status === "success" ? (
         <HomeList list={cars} />
       ) : (
-        <StyledSpinnerContainer>
+        <StyledSpinnerContainer data-testid="loading-list-spinner">
           <ClipLoader size={isMobile ? 35 : 60} />
         </StyledSpinnerContainer>
       )}
