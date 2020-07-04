@@ -13,7 +13,8 @@ const StyledTitle = styled.h3`
 `;
 
 const HomeTitle = ({ amount }) => {
-  if (!amount) return <h3>No hemos encontrado ninguna coincidencia</h3>;
+  if (!amount)
+    return <StyledTitle>No hemos encontrado ninguna coincidencia</StyledTitle>;
 
   return (
     <StyledTitle>

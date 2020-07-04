@@ -18,6 +18,12 @@ const StyledHomeWrapper = styled.div`
   padding: ${({ theme: { defaultPadding } }) => defaultPadding}px;
 `;
 
+const StyledSpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Home = ({ cars, setCars }) => {
   const { data: carsResponse, status, error } = useQuery(
     "cars",
@@ -42,7 +48,9 @@ const Home = ({ cars, setCars }) => {
       {status === "success" ? (
         <HomeList list={cars} />
       ) : (
-        <ClipLoader size={isMobile ? 35 : 60} />
+        <StyledSpinnerContainer>
+          <ClipLoader size={isMobile ? 35 : 60} />
+        </StyledSpinnerContainer>
       )}
     </StyledHomeWrapper>
   );
