@@ -41,9 +41,9 @@ const HomeList = ({ list, filters, amountToRender = 3 }) => {
 
   useEffect(() => {
     const listFillScreen = () => {
-      if (
-        listRef.current.getBoundingClientRect().height <= window.innerHeight
-      ) {
+      const listHeight = listRef.current.getBoundingClientRect().height;
+      if (!listHeight) return;
+      if (listHeight <= window.innerHeight) {
         onEndListReached();
       }
     };
@@ -82,7 +82,7 @@ const HomeList = ({ list, filters, amountToRender = 3 }) => {
   );
 
   return (
-    <StyledListContainer ref={listRef}>
+    <StyledListContainer ref={listRef} data-testid="list-container">
       {renderListContent()}
     </StyledListContainer>
   );
