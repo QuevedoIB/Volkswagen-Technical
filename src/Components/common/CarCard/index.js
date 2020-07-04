@@ -148,8 +148,12 @@ const CarCard = ({
               fontSize={12}
             >{`${Brand} ${Model} ${CV}CV`}</StyledCardTitles>
           </div>
-          <StyledLikeButton onClick={onLikePress}>
-            {Liked ? <FaHeart size={20} /> : <FaRegHeart size={20} />}
+          <StyledLikeButton data-testid="like-button" onClick={onLikePress}>
+            {Liked ? (
+              <FaHeart data-testid="liked-icon" size={20} />
+            ) : (
+              <FaRegHeart data-testid="disliked-icon" size={20} />
+            )}
           </StyledLikeButton>
         </StyledCardHeaderContainer>
         <StyledCardDetails>{`${Plate} | ${year} | ${Kms}km | ${CV}CV | ${Energy}`}</StyledCardDetails>

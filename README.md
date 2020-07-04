@@ -1,6 +1,7 @@
 TODO:
 
 - tests
+- spinner centered on loading
 
 Commands required to run the project locally:
 
